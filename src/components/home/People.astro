@@ -1,0 +1,30 @@
+---
+// "The people you'll actually sit down with." — two columns of rows; the portrait follows the cursor on hover (desktop),
+// a fixed 56px thumbnail stands in on touch/tablet/mobile. Each row links to the lawyer block on the area page.
+import { Image } from 'astro:assets';
+import { PEOPLE, AREA_NAMES, AREA_SLUGS, type PersonId } from '../../data/people';
+import { CARD } from '../../lib/images';
+import { AR } from '../../lib/icons';
+const cols: PersonId[][] = [['siobhan', 'declan'], ['marta', 'rafael']];
+---
+<div class="band b-light" id="people">
+  <div class="wrap">
+    <h2 class="h2">The people you'll <em>actually sit down with.</em></h2>
+    <div class="prow-grid" id="prows">
+      {cols.map(col => <div>{col.map(id => { const p = PEOPLE[id]; return (
+        <a class="prow" href={`${AREA_SLUGS[p.areas[0]]}#lw-${id}`} data-person={id}>
+          <Image class="float" src={CARD[id]} alt="" width={420} format="webp" quality={80} loading="lazy" />
+          <Image class="thumb" src={CARD[id]} alt="" width={112} height={112} format="webp" quality={80} loading="lazy" />
+          <div><b>{p.name}</b><div class="meta">{p.areas.map(a => <span class="tag">{AREA_NAMES[a]}</span>)}{p.langs.filter(l => l !== 'English').map(l => <span class="tag plain">{l}</span>)}</div></div>
+          <span class="go"><Fragment set:html={AR} /></span>
+        </a>); })}</div>)}
+    </div>
+  </div>
+</div>
+<script>
+  // the floating portrait follows the cursor on both axes; x is clamped so it never leaves the row
+  document.querySelectorAll<HTMLElement>('.prow').forEach(r => {
+    const img = r.querySelector<HTMLElement>('.float'); if (!img) return;
+    r.addEventListener('mousemove', e => { const b = r.getBoundingClientRect(); img.style.left = Math.min(Math.max(e.clientX - b.left, 110), b.width - 110) + 'px'; img.style.top = (e.clientY - b.top) + 'px'; });
+  });
+</script>

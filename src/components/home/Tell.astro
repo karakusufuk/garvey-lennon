@@ -1,0 +1,31 @@
+---
+// Home banner (Four Courts) + the "Tell us what happened" card and L arm. The flow itself renders client-side (scripts/flow.ts).
+import { Image, getImage } from 'astro:assets';
+import '../../styles/flow.css';
+import { FOUR_COURTS, CARD } from '../../lib/images';
+import { PEOPLE_ORDER } from '../../data/people';
+import { X } from '../../lib/icons';
+const cards: Record<string, string> = {};
+for (const id of PEOPLE_ORDER) cards[id] = (await getImage({ src: CARD[id], width: 208, format: 'webp', quality: 80 })).src;
+---
+<div class="hero" id="hero">
+  <Image src={FOUR_COURTS} alt="The Four Courts on the River Liffey, Dublin" widths={[640, 960, 1280, 1536]} sizes="100vw" format="webp" quality={80} loading="eager" fetchpriority="high" />
+</div>
+<div class="tell" id="tell" data-cards={JSON.stringify(cards)}>
+  <div class="wrap">
+    <div class="L" id="L">
+      <div class="col" id="col">
+        <button class="cclose" id="closeBtn" aria-label="Close" type="button"><Fragment set:html={X} /></button>
+        <h1 data-t="h1">Tell us <em>what happened.</em></h1>
+        <p class="csub" data-t="flowH">Pick the sentence closest to yours, answer a few one-click questions, then meet the solicitor who handles it.</p>
+        <div class="cbody" id="cbody"></div>
+        <p class="disclaim" data-t="disc">This is not legal advice. Nothing you click is stored until you book.</p>
+      </div>
+      <div class="arm" id="arm" aria-live="polite"><div class="armin" id="armin"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+  import { initFlow } from '../../scripts/flow';
+  initFlow();
+</script>

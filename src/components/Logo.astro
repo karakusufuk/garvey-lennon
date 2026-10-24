@@ -1,0 +1,10 @@
+---
+// The only place the logo lives. Replace the monogram + wordmark here when the real logo arrives.
+import { SITE } from '../data/site';
+interface Props { href?: string; monogram?: boolean }
+const { href = '/', monogram = true } = Astro.props;
+---
+<a class="logo" href={href} aria-label={`${SITE.name} home`}>
+  {monogram && <svg class="mono" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--green)"/><text x="20" y="27" text-anchor="middle" font-family="Geist, Geist Sans, Arial, sans-serif" font-size="16" font-weight="600" fill="var(--paper)">GL</text></svg>}
+  <span class="w"><b>{SITE.name}</b><span>{SITE.tagline}</span></span>
+</a>

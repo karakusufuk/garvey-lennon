@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import { MEMBERSHIPS_IMG, MEMBERSHIPS_IS_FALLBACK } from '../../lib/images';
+import { MEMBERSHIPS } from '../../data/site';
+---
+<div class="band b-tint" id="memberships">
+  <div class="wrap mem">
+    <Image src={MEMBERSHIPS_IMG} alt={MEMBERSHIPS_IS_FALLBACK ? 'The Garvey Lennon team' : 'Blackhall Place, home of the Law Society of Ireland'} widths={[480, 720, 960, 1200, 1500]} sizes="(max-width: 1023px) 100vw, 50vw" format="webp" quality={82} loading="lazy" />
+    <div>
+      <h2 class="h2">Our memberships</h2>
+      <div class="mlist">{MEMBERSHIPS.map(m => <div>{m}</div>)}</div>
+    </div>
+  </div>
+</div>

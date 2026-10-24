@@ -1,0 +1,114 @@
+/* Home page bands below the flow: People, languages, the written summary, memberships, Insights, visit. */
+
+/* People — rows with a cursor-following portrait */
+.prow-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:44px}
+.prow-grid>div{display:flex;flex-direction:column}
+.prow{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;width:100%;text-align:left;padding:30px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;transition:border-color .35s}
+.prow-grid>div>.prow:last-child{border-bottom:1px solid var(--line)}
+.prow b{font-weight:600;font-size:clamp(28px,2.6vw,38px);line-height:1.05;letter-spacing:-.035em;display:block;transition:color .2s}
+.prow .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.prow .go{width:var(--ctl);height:var(--ctl);border-radius:var(--r);background:var(--stone);display:grid;place-items:center;transition:background .2s,color .2s;color:var(--ink)}
+.prow:hover b{color:var(--green)}
+.prow:hover .go{background:var(--green);color:var(--on-green)}
+.prow .float{position:absolute;top:50%;left:0;width:210px;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r);pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.92);transition:opacity .2s,transform .2s;z-index:5;box-shadow:0 24px 40px -18px rgba(20,30,25,.45)}
+.prow:hover .float{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.prow .thumb{display:none;width:56px;height:56px;border-radius:var(--r);object-fit:cover;object-position:50% 18%;flex:none}
+@media (hover:none),(max-width:1023px){
+  .prow .float{display:none}
+  .prow{grid-template-columns:auto minmax(0,1fr) auto}
+  .prow .thumb{display:block}
+}
+@media (max-width:1023px){.prow-grid{gap:0 40px}.prow{padding:22px 0}}
+@media (max-width:767px){.prow-grid{grid-template-columns:1fr;margin-top:32px}.prow-grid>div:first-child>.prow:last-child{border-bottom:0}.prow b{font-size:24px}.prow .meta{margin-top:8px}}
+
+/* Languages — one band, soft horizontal gradient dark → light, three equal columns */
+.langband{background:linear-gradient(100deg,var(--deep) 0%,var(--green) 48%,var(--green-4) 100%);color:#fff}
+.lgrid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.lc{padding:4px 28px;border-left:1px solid rgba(255,255,255,.16);display:flex;flex-direction:column;gap:18px}
+.lc:first-child{border-left:0}
+.lc h3{font-size:clamp(22px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;white-space:nowrap;line-height:1.1}
+.lc p{color:rgba(255,255,255,.78);font-size:16px;line-height:1.55;height:calc(1.55em * 4);overflow:hidden;text-wrap:pretty}
+.lc .btn{align-self:flex-start;min-width:150px;margin-top:auto}
+@media (max-width:1023px){
+  .langband{background:linear-gradient(180deg,var(--deep) 0%,var(--green) 48%,var(--green-4) 100%)}
+  .lgrid{grid-template-columns:1fr;gap:0;max-width:640px}
+  .lc{border-left:0;padding:28px 0;border-top:1px solid rgba(255,255,255,.16);gap:14px}
+  .lc:first-child{border-top:0;padding-top:0}
+  .lc:last-child{padding-bottom:0}
+  .lc h3{white-space:normal;font-size:28px}
+  .lc p{height:auto;overflow:visible}
+  .lc .btn{margin-top:4px}
+}
+
+/* The written summary — paper that writes itself on scroll */
+.how{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,3fr);gap:48px;align-items:center}
+#howText{will-change:opacity,transform}
+.paper{background:var(--white);border-radius:var(--r);padding:40px 44px 44px;font-size:14px;color:var(--ink);
+  transform:translateY(var(--ty,0px)) rotate(0deg) scale(1);filter:brightness(var(--br,1));
+  box-shadow:0 1px 0 var(--line),0 10px 24px -18px rgba(20,30,40,.25);transition:box-shadow .35s,transform .35s var(--ease)}
+.paper:hover{transform:translateY(var(--ty,0px)) rotate(-1.2deg) scale(1.03);box-shadow:0 1px 0 var(--line),0 50px 80px -40px rgba(20,30,40,.45)}
+.paper .lh{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid var(--line);gap:16px}
+.paper .lh b{font-weight:500;font-size:20px;letter-spacing:-.02em}
+.paper .lh span{font-size:11px;color:var(--ink-3);text-align:right;line-height:1.5}
+.paper .re{margin-top:18px;font-size:12px;color:var(--ink-3)}
+.ph{margin-top:20px;transition:opacity .2s}
+.ph button{font-size:18px;font-weight:500;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;padding:4px 8px;margin-left:-8px;border-radius:8px;min-height:30px;transition:background .2s,color .2s,opacity .2s;text-align:left}
+.ph button::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--clay);flex:none}
+.ph button:hover,.ph button.on{background:var(--tint);color:var(--green)}
+.ph .tw:empty::after{content:"\00a0"}
+.lines{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.lines i{display:block;height:7px;border-radius:4px;background:var(--stone-2);width:0}
+.annot{border-left:2px solid var(--clay);padding-left:22px;min-height:180px}
+.annot b{font-weight:500;font-size:28px;line-height:1.1;display:block;letter-spacing:-.02em}
+.annot p{color:var(--ink-2);margin-top:12px;font-size:16px}
+.annot .pin{animation:fd2 .3s both}
+@media (max-width:1023px){
+  .how{grid-template-columns:1fr;gap:36px;max-width:680px;margin:0 auto}
+  .paper{transform:none!important;filter:none!important}
+  .paper:hover{box-shadow:0 1px 0 var(--line),0 10px 24px -18px rgba(20,30,40,.25)}
+  .annot{min-height:0}
+}
+@media (max-width:767px){.paper{padding:28px 22px 30px}.ph button{font-size:17px;min-height:44px}.annot b{font-size:24px}}
+@media (pointer:coarse){.ph button{min-height:44px}}
+
+/* Memberships */
+.mem{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:64px;align-items:center}
+.mem img{width:100%;height:auto;aspect-ratio:3/2;border-radius:var(--r);object-fit:cover;display:block}
+.mlist{margin-top:28px;display:flex;flex-direction:column}
+.mlist div{display:block;padding:18px 0;font-size:22px;font-weight:500;letter-spacing:-.02em;border-top:1px solid rgba(40,50,60,.16);line-height:1.2}
+.mlist div:last-child{border-bottom:1px solid rgba(40,50,60,.16)}
+@media (max-width:1023px){.mem{grid-template-columns:1fr;gap:36px}}
+@media (max-width:767px){.mlist div{font-size:19px;padding:14px 0}}
+
+/* Insights — reader + sliding list */
+.ins{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;margin-top:44px;align-items:stretch}
+.reader{background:var(--white);border-radius:var(--r);padding:38px 48px 40px;height:440px;display:flex;flex-direction:column;overflow:hidden}
+.reader .fade{display:flex;flex-direction:column;height:100%;animation:fd2 .3s both}
+.reader .by{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink-3)}
+.reader .by img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 15%}
+.reader h3{font-size:clamp(30px,2.8vw,40px);line-height:1.08;margin-top:18px;letter-spacing:-.03em;font-weight:500}
+.reader p{margin-top:12px;margin-bottom:20px;color:var(--ink-2);font-size:17px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:5;line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.reader .btn{margin-top:auto;align-self:flex-start;flex:none}
+.ilist{display:flex;flex-direction:column;gap:6px}
+.ilist>.ind{background:var(--green)}
+.ilist button{text-align:left;padding:18px 20px;border-radius:var(--r);display:flex;flex-direction:column;gap:6px;transition:background .2s,color .35s;min-height:var(--ctl)}
+.ilist button:hover{background:var(--stone)}
+.ilist button.on{background:transparent;color:var(--on-green)}
+.ilist:not(.ready) button.on{background:var(--green)}
+.ilist b{font-weight:500;font-size:20px;line-height:1.15;letter-spacing:-.02em;transition:color .2s}
+.ilist button:hover b{color:var(--green)}
+.ilist button.on b{color:var(--on-green)}
+.ilist .au{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-3);font-weight:500;transition:color .35s}
+.ilist button.on .au{color:var(--on-green-2)}
+.ilist .au img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:50% 15%}
+@media (max-width:1023px){
+  .ins{grid-template-columns:1fr;gap:28px}
+  .reader{height:auto;padding:32px 28px}
+  .reader p{-webkit-line-clamp:6;line-clamp:6}
+  .reader .btn{margin-top:28px}
+}
+@media (max-width:767px){.reader{padding:26px 20px}.reader h3{font-size:26px}.reader p{font-size:16px}.ilist button{padding:14px 16px}.ilist b{font-size:18px}}
+
+/* Visit */
+.visit .h2.vt{font-size:clamp(36px,3.6vw,52px)}
+@media (max-width:767px){.visit .h2.vt{font-size:clamp(30px,8vw,40px)}}

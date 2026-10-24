@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import { DOOR_16x9 } from '../../lib/images';
+import { SITE } from '../../data/site';
+import { EXT } from '../../lib/icons';
+const tel = 'tel:+353' + SITE.phone.replace(/\s/g, '').replace(/^0/, '');
+---
+<div class="band b-stone" id="visit">
+  <div class="wrap visit">
+    <Image src={DOOR_16x9} alt={`The green front door of Garvey Lennon at ${SITE.addressShort}`} widths={[480, 720, 960, 1200, 1500]} sizes="(max-width: 1023px) 100vw, 56vw" format="webp" quality={82} loading="lazy" />
+    <div class="facts">
+      <h2 class="h2 vt">The green door on <em>{SITE.street}.</em></h2>
+      <div><h4>Address</h4><p>{SITE.address}</p></div>
+      <div><h4>Phone</h4><div class="copyline"><p><a href={tel}>{SITE.phone}</a></p><button class="copy" data-copy={SITE.phone} type="button">Copy</button></div></div>
+      <div><h4>Open</h4><p>{SITE.hoursShort}</p></div>
+      <button class="btn" data-action="map" data-value={SITE.address} type="button">Open in Google Maps <Fragment set:html={EXT} /></button>
+    </div>
+  </div>
+</div>

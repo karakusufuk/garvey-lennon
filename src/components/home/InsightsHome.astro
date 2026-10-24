@@ -1,0 +1,36 @@
+---
+// Reader card (fixed height) + list whose dark selection slides from row to row.
+import { getImage } from 'astro:assets';
+import { INS } from '../../data/insights';
+import { PEOPLE, AREA_NAMES, PEOPLE_ORDER } from '../../data/people';
+import { CARD } from '../../lib/images';
+import { AR } from '../../lib/icons';
+const av: Record<string, string> = {};
+for (const id of PEOPLE_ORDER) av[id] = (await getImage({ src: CARD[id], width: 96, format: 'webp', quality: 80 })).src;
+const a0 = INS[0], p0 = PEOPLE[a0.who];
+---
+<div class="band b-light" id="insights">
+  <div class="wrap">
+    <h2 class="h2">Insights</h2>
+    <p class="sub">Short articles on Irish law, written by the solicitor who handles that work.</p>
+    <div class="ins">
+      <div class="reader" id="reader" aria-live="polite">
+        <div class="fade"><div class="by"><img src={av[p0.id]} alt="" width="40" height="40"><span>{p0.name} · {AREA_NAMES[a0.area]} · {a0.d}</span></div><h3>{a0.t}</h3><p>{a0.x}</p><a class="btn" href={a0.href || '/insights/'}>Read more <Fragment set:html={AR} /></a></div>
+      </div>
+      <div class="ilist seg" id="ilist" role="tablist" aria-label="Articles">
+        {INS.map((a, i) => <button type="button" role="tab" data-ins={i} class={i === 0 ? 'on' : ''} aria-selected={i === 0 ? 'true' : 'false'}><b>{a.t}</b><span class="au"><img src={av[a.who]} alt="" width="28" height="28">{PEOPLE[a.who].name} · {a.d}</span></button>)}
+      </div>
+    </div>
+  </div>
+</div>
+<script define:vars={{ INS, PEOPLE: Object.fromEntries(Object.values(PEOPLE).map(p => [p.id, { name: p.name }])), AN: AREA_NAMES, av, AR }}>
+  const reader = document.getElementById('reader'), list = document.getElementById('ilist');
+  const slideEv = () => document.dispatchEvent(new CustomEvent('gl:slide', { detail: list }));
+  function setIns(i) {
+    const a = INS[i], p = PEOPLE[a.who];
+    reader.innerHTML = `<div class="fade"><div class="by"><img src="${av[a.who]}" alt="" width="40" height="40"><span>${p.name} · ${AN[a.area]} · ${a.d}</span></div><h3>${a.t}</h3><p>${a.x}</p><a class="btn" href="${a.href || '/insights/'}">Read more ${AR}</a></div>`;
+    list.querySelectorAll('[data-ins]').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', String(j === i)); });
+    slideEv();
+  }
+  list.addEventListener('click', e => { const b = e.target.closest('[data-ins]'); if (b) setIns(+b.dataset.ins); });
+</script>

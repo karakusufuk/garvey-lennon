@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import '../../styles/pages.css';
+import { CARD } from '../../lib/images';
+import { BK } from '../../lib/icons';
+---
+<Base title="Not married. What are my rights?" description="Cohabitants in Ireland: when the law counts you as a couple, what you can claim, guardianship, and what isn't covered.">
+  <div class="band b-light"><div class="wrap"><article class="article">
+    <a class="btn soft back" href="/insights/"><Fragment set:html={BK} /> All insights</a>
+    <h1>Not married. What are my rights?</h1>
+    <div class="by"><Image src={CARD.siobhan} alt="" width={96} height={96} format="webp" quality={80} /><span>Siobhan Garvey · Family law · Checked 6 October 2026</span></div>
+    <p>In Ireland, couples who live together without marrying or registering a civil partnership are called cohabitants. The law gives you some protection, but much less than marriage, and very little of it is automatic.</p>
+    <h2>When does the law count you as a couple?</h2>
+    <p>Under the Civil Partnership and Certain Rights and Obligations of Cohabitants Act 2010, you may be a qualified cohabitant if you lived together in an intimate and committed relationship for at least two years and have a child together, or for at least five years if you don't.</p>
+    <div class="tablewrap"><table><tbody>
+      <tr><td>Living together, child together</td><td>2 years or more</td></tr>
+      <tr><td>Living together, no child together</td><td>5 years or more</td></tr>
+      <tr><td>Deadline to apply after the relationship ends</td><td>2 years</td></tr>
+    </tbody></table></div>
+    <h2>What can you claim?</h2>
+    <p>A qualified cohabitant who was financially dependent on their partner can ask the court for maintenance, a share of a pension or an order over property. The court decides; nothing is shared out automatically.</p>
+    <h2>And the children?</h2>
+    <p>A mother is automatically a guardian. Since the Children and Family Relationships Act 2015, a father is also an automatic guardian if he lived with the mother for at least 12 consecutive months, including at least three months after the child's birth. Otherwise he can become a guardian by statutory declaration with the mother, or by applying to the District Court.</p>
+    <h2>What isn't covered</h2>
+    <p>A cohabitant has no automatic right to inherit if their partner dies without a will, and no right to stay in a home that is only in the partner's name. A will and a cohabitation agreement close most of those gaps.</p>
+    <a class="btn cta" href="/#start=family">Book a meeting with Siobhan</a>
+  </article></div></div>
+</Base>

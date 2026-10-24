@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import '../styles/pages.css';
+import { DOOR_3x2 } from '../lib/images';
+import { SITE } from '../data/site';
+import { EXT } from '../lib/icons';
+const tel = 'tel:+353' + SITE.phone.replace(/\s/g, '').replace(/^0/, '');
+---
+<Base title="Contact" description={`Garvey Lennon, ${SITE.address}. Phone, email, office hours and how to get here.`}>
+  <div class="band b-light"><div class="wrap visit contact">
+    <Image src={DOOR_3x2} alt="The green front door of Garvey Lennon" widths={[480, 720, 960, 1200, 1500]} sizes="(max-width: 1023px) 100vw, 56vw" format="webp" quality={82} loading="eager" />
+    <div class="facts">
+      <h1 class="ph1" style="font-size:clamp(48px,5vw,76px)">Contact</h1>
+      <div><h4>Address</h4><p>{SITE.address}</p></div>
+      <div><h4>Phone</h4><div class="copyline"><p><a href={tel}>{SITE.phone}</a></p><button class="copy" data-copy={SITE.phone}>Copy</button></div></div>
+      <div><h4>Email</h4><div class="copyline"><p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p><button class="copy" data-copy={SITE.email}>Copy</button></div></div>
+      <div><h4>Office hours</h4><div class="hours">{SITE.hours.map(([d, h]) => <><span>{d}</span><span>{h}</span></>)}</div></div>
+    </div>
+  </div></div>
+  <div class="band b-tint"><div class="wrap">
+    <h2 class="h2">Getting here.</h2>
+    <div class="handle">
+      <div><b>Luas</b><span>Green Line to St Stephen's Green, then 12 minutes on foot.</span></div>
+      <div><b>DART</b><span>Grand Canal Dock or Pearse, about 10 minutes away.</span></div>
+      <div><b>Car</b><span>Pay-and-display on the street. Ask us for the car park code.</span></div>
+    </div>
+    <button class="btn" style="margin-top:36px" data-action="map" data-value={SITE.address}>Open in Google Maps <Fragment set:html={EXT} /></button>
+  </div></div>
+</Base>

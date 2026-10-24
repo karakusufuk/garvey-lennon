@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/home.css';
+import '../styles/pages.css';
+import Tell from '../components/home/Tell.astro';
+import People from '../components/home/People.astro';
+import LangBand from '../components/home/LangBand.astro';
+import Summary from '../components/home/Summary.astro';
+import Memberships from '../components/home/Memberships.astro';
+import InsightsHome from '../components/home/InsightsHome.astro';
+import Visit from '../components/home/Visit.astro';
+import { SITE } from '../data/site';
+---
+<Base title={SITE.name} description="Tell us what happened. A few one-click questions, then a meeting with the Dublin solicitor who handles it. Family, employment, copyright, personal injury.">
+  <Tell />
+  <People />
+  <LangBand />
+  <Summary />
+  <Memberships />
+  <InsightsHome />
+  <Visit />
+</Base>

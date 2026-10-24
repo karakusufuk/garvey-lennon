@@ -1,0 +1,51 @@
+---
+import Logo from './Logo.astro';
+import { AREA_ORDER, AREAS } from '../data/areas';
+import { LEADS } from '../data/people';
+import { AR } from '../lib/icons';
+const path = Astro.url.pathname;
+const cur = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
+const isArea = AREA_ORDER.some(a => path.startsWith(AREAS[a].slug));
+const links: [string, string, string][] = [['/insights/', 'insights', 'Insights'], ['/fees/', 'fees', 'Fees'], ['/about/', 'about', 'About'], ['/contact/', 'contact', 'Contact']];
+---
+<header class="top" id="top">
+  <div class="wrap">
+    <Logo />
+    <nav class="main" aria-label="Main">
+      <button id="svcBtn" aria-expanded="false" aria-controls="svc" data-active={isArea || undefined}><span data-t="services">Services</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      {links.map(([href, key, label]) => <a href={href} data-t={key} aria-current={cur(href)}>{label}</a>)}
+    </nav>
+    <div class="lang seg" role="group" aria-label="Language" data-lang-group>
+      <button data-lang="en" aria-pressed="true">EN</button>
+      <button data-lang="pl" aria-pressed="false">PL</button>
+      <button data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+    <button class="menubtn" id="menuBtn" aria-expanded="false" aria-controls="mpanel">
+      <span data-t="menu">Menu</span>
+      <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="svc" id="svc" aria-label="Services">
+    <div class="wrap">
+      {AREA_ORDER.map(a => <a href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><b>{AREAS[a].title}</b><span>{LEADS[a]}</span><Fragment set:html={AR} /></a>)}
+    </div>
+  </div>
+  <div class="mpanel" id="mpanel" aria-label="Menu">
+    <div class="wrap">
+      <p class="msec" data-t="services">Services</p>
+      {AREA_ORDER.map(a => <a class="mrow" href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><span><b>{AREAS[a].title}</b><span>{LEADS[a]}</span></span><Fragment set:html={AR} /></a>)}
+      <div class="mlinks" style="margin-top:22px">
+        {links.map(([href, key, label]) => <a href={href} data-t={key} aria-current={cur(href)}>{label}</a>)}
+      </div>
+      <div class="mlang">
+        <div class="lang seg" role="group" aria-label="Language" data-lang-group>
+          <button data-lang="en" aria-pressed="true">EN</button>
+          <button data-lang="pl" aria-pressed="false">PL</button>
+          <button data-lang="pt" aria-pressed="false">PT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>

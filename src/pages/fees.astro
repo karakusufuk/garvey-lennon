@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/pages.css';
+import { PI_FEE_SENTENCE } from '../data/site';
+---
+<Base title="Fees" description="What a first meeting costs, how fixed and hourly fees work, and your Section 150 notice.">
+  <div class="band b-light"><div class="wrap">
+    <h1 class="ph1">What it costs.</h1>
+    <p class="sub">You'll know the cost of a first meeting before you book it, and the likely cost of the whole matter before we start.</p>
+    <div class="fees">
+      <div class="feecard"><div class="price">€150 <small>+ VAT</small></div><h3>First meeting</h3><p>45 minutes, in person or by video.</p></div>
+      <div class="feecard"><div class="price">Fixed <small>fee</small></div><h3>Defined pieces of work</h3><p>Agreements, declarations, letters and contract reviews.</p></div>
+      <div class="feecard"><div class="price">Hourly <small>with estimate</small></div><h3>Disputes and court work</h3><p>An estimate of the total, including outlays.</p></div>
+    </div>
+  </div></div>
+  <div class="band b-green"><div class="wrap">
+    <h2 class="h2">Your Section 150 notice.</h2>
+    <p class="sub">Irish law requires every solicitor to give you this in writing at the start. Ours covers:</p>
+    <div class="s150">
+      <div><b>The fee</b><p>Fixed, hourly or both, with the rates.</p></div>
+      <div><b>Outlays</b><p>Court fees, barristers, reports.</p></div>
+      <div><b>Billing</b><p>Monthly, at stages or at the end.</p></div>
+      <div><b>Changes</b><p>In writing before the estimate is passed.</p></div>
+      <div><b>If you lose in court</b><p>Costs you might have to pay.</p></div>
+      <div><b>Questioning a bill</b><p>Our process, and the LSRA.</p></div>
+    </div>
+  </div></div>
+  <div class="band b-light" style="min-height:0;padding-block:56px"><div class="wrap">
+    <p class="alert">{PI_FEE_SENTENCE}</p>
+    <p class="note">Civil legal aid may be available through the Legal Aid Board. We'll tell you at the first meeting if it's likely to apply.</p>
+  </div></div>
+</Base>

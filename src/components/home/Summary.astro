@@ -1,0 +1,20 @@
+---
+// "Two working days after we meet, you'll have this in writing." — the letter writes itself on scroll (scripts/summary.ts).
+import { HOW, HOW_LINES } from '../../data/insights';
+import { SITE } from '../../data/site';
+---
+<div class="band b-light" id="howSec">
+  <div class="wrap how">
+    <div id="howText"><h2 class="h2">Two working days after we meet, <em>you'll have this in writing.</em></h2><p class="sub">Every first meeting ends with a written summary. Point at a heading to see what it covers.</p></div>
+    <div class="paper" id="paper" aria-label="Sample written summary">
+      <div class="lh"><b>{SITE.name}</b><span>{SITE.addressLines[0]}<br>{SITE.addressLines[1]} · {SITE.phone}</span></div>
+      <p class="re">Private and confidential · Re: our meeting of 21 October 2026</p>
+      {HOW.map(([h], i) => <div class="ph"><button type="button" data-h={i} class={i === 0 ? 'on' : ''} aria-label={h}><span class="tw" data-full={h}></span></button><div class="lines">{HOW_LINES[i].map(w => <i data-w={w}></i>)}</div></div>)}
+    </div>
+    <div class="annot" id="annot" aria-live="polite"><div class="pin"><b>{HOW[0][0]}</b><p>{HOW[0][1]}</p></div></div>
+  </div>
+</div>
+<script>
+  import { initSummary } from '../../scripts/summary';
+  initSummary();
+</script>

@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ActionModal from '../components/ActionModal.astro';
+import { SITE } from '../data/site';
+interface Props { title: string; description?: string; bodyClass?: string }
+const { title, description = 'Garvey Lennon, solicitors in Dublin 2. Family law, employment law, copyright and personal injury. English, Polish and Portuguese.', bodyClass } = Astro.props;
+const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+---
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{fullTitle}</title>
+<meta name="description" content={description}>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/geist-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap">
+<style is:inline>
+/* Geist, self-hosted for the latin range (Fontsource build). Google Fonts above supplies latin-ext (Polish ą ę ł ś ż).
+   Declared after the Google stylesheet so the local files win for latin. */
+@font-face{font-family:"Geist";font-style:normal;font-weight:300;font-display:swap;src:url(/fonts/geist-sans-latin-300-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/geist-sans-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/geist-sans-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/geist-sans-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Geist";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/geist-sans-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<script is:inline>
+// Apply the remembered language before paint so nothing flashes in English.
+(function(){try{var l=localStorage.getItem('gl-lang');if(l==='pl'||l==='pt'){document.documentElement.lang=l==='pl'?'pl':'pt-BR';document.documentElement.dataset.siteLang=l}else{document.documentElement.dataset.siteLang='en'}}catch(e){document.documentElement.dataset.siteLang='en'}})();
+</script>
+</head>
+<body class={bodyClass}>
+<Header />
+<main id="main">
+  <slot />
+</main>
+<Footer />
+<ActionModal />
+<script>
+  import '../scripts/main';
+</script>
+</body>
+</html>

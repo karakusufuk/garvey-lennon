@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/pages.css';
+import { ALLINS, INSIGHT_FILTERS, short } from '../../data/insights';
+import { PEOPLE } from '../../data/people';
+---
+<Base title="Insights" description="Short articles on Irish law, each written and checked by the solicitor who handles that work.">
+  <div class="band b-light"><div class="wrap">
+    <h1 class="ph1">Insights</h1>
+    <p class="sub">Short articles on Irish law, each written and checked by the solicitor who handles that work.</p>
+    <div class="ltabs-wrap"><div class="chips seg" id="ifilters" role="group" aria-label="Filter by area">
+      {INSIGHT_FILTERS.map(([k, label], i) => <button class="chip" data-if={k} aria-pressed={i === 0 ? 'true' : 'false'}>{label}</button>)}
+    </div></div>
+    <div class="ilist-page" id="ipage">
+      {ALLINS.map(a => a.href
+        ? <a class="irow" href={a.href} data-area={a.area}><b>{a.t}</b><p>{short(a.x)}</p><span>{PEOPLE[a.who].name} · {a.d}</span></a>
+        : <div class="irow" data-area={a.area}><b>{a.t}</b><p>{short(a.x)}</p><span>{PEOPLE[a.who].name} · {a.d}</span></div>)}
+    </div>
+  </div></div>
+  <script>
+    import { slide } from '../../scripts/seg';
+    const box = document.getElementById('ifilters')!;
+    box.addEventListener('click', e => {
+      const b = (e.target as HTMLElement).closest<HTMLElement>('[data-if]'); if (!b) return;
+      const f = b.dataset.if!;
+      box.querySelectorAll<HTMLElement>('[data-if]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.if === f)));
+      document.querySelectorAll<HTMLElement>('#ipage .irow').forEach(r => r.classList.toggle('hide', f !== 'all' && r.dataset.area !== f));
+      slide(box);
+      b.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    });
+  </script>
+</Base>

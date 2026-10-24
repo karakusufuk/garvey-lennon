@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import LawyerBlock from '../components/area/LawyerBlock.astro';
+import { getImage } from 'astro:assets';
+import '../styles/pages.css';
+import '../styles/area.css';
+import { AREAS, AREA_ORDER } from '../data/areas';
+import { PEOPLE } from '../data/people';
+import { BANNER21, BANNER32 } from '../lib/images';
+import { AR } from '../lib/icons';
+export function getStaticPaths() {
+  return AREA_ORDER.map(a => ({ params: { area: AREAS[a].slug.replace(/\//g, '') }, props: { id: a } }));
+}
+const { id } = Astro.props;
+const a = AREAS[id];
+const L = PEOPLE[a.team[0]];
+const set = async (src: any, widths: number[]) => (await Promise.all(widths.map(async w => { const i = await getImage({ src, width: w, format: 'webp', quality: 80 }); return `${i.src} ${w}w`; }))).join(', ');
+const wide = await set(BANNER21[id], [1024, 1536]);
+const narrow = await set(BANNER32[id], [640, 960, 1280, 1536]);
+const fallback = (await getImage({ src: BANNER32[id], width: 960, format: 'webp', quality: 80 })).src;
+const alertHtml = a.alert;
+---
+<Base title={a.title} description={`${a.title} in Dublin: when to come to us, the time limits that apply and how our fees work. ${L.name}${a.team[1] ? ' with ' + PEOPLE[a.team[1]].name : ''}.`}>
+  <div class="abanner">
+    <picture>
+      <source media="(min-width: 1024px)" srcset={wide} sizes="100vw" type="image/webp">
+      <source srcset={narrow} sizes="100vw" type="image/webp">
+      <img src={fallback} alt={L.name} width="1536" height="1024" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="wrap">
+      <h1>{a.title}</h1>
+      <p class="who"><b>{L.name}</b>, {L.role}{a.team[1] ? ` · with ${PEOPLE[a.team[1]].name}` : ''}</p>
+      <a class="btn" href={`/#start=${a.id}`}>Tell us what happened <Fragment set:html={AR} /></a>
+    </div>
+  </div>
+
+  <div class="band b-green area-dark"><div class="wrap">
+    <h2 class="h2">{a.line}</h2>
+    {alertHtml && <p class="alert" set:html={alertHtml} />}
+    <div class="handle">{a.handle.map(h => <div><b>{h[0]}</b><span>{h[1]}</span></div>)}</div>
+  </div></div>
+
+  {a.team.map((pid, i) => (
+    <>
+      <div class="band b-light"><div class="wrap"><LawyerBlock id={pid} uid={`${a.id}${i}`} first={i === 0} /></div></div>
+      <div class="qband"><div class="wrap"><p>“{PEOPLE[pid].said}”</p><span>{PEOPLE[pid].name}, {PEOPLE[pid].role}</span></div></div>
+    </>
+  ))}
+
+  <div class="band b-tint"><div class="wrap">
+    <h2 class="h2">Questions people ask first.</h2>
+    <div class="qa">{a.qa.map(q => <div><h3>{q[0]}</h3><p>{q[1]}</p></div>)}</div>
+  </div></div>
+
+  <div class="band b-light closer"><div class="wrap">
+    <h2>A few questions, then a meeting with {L.first}.</h2>
+    <a class="btn" href={`/#start=${a.id}`}>Tell us what happened <Fragment set:html={AR} /></a>
+  </div></div>
+
+  <script>
+    import { initLawyers } from '../scripts/lawyer';
+    initLawyers();
+  </script>
+</Base>

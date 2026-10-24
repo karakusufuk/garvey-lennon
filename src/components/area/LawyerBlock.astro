@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import { PEOPLE, AREA_NAMES, TABS, type PersonId } from '../../data/people';
+import { CARD } from '../../lib/images';
+interface Props { id: PersonId; uid: string; first?: boolean }
+const { id, uid, first = false } = Astro.props;
+const p = PEOPLE[id];
+const quals = p.quals;
+---
+<div class="lawyer" id={`lw-${id}`} data-who={id}>
+  <div class="lphw"><Image src={CARD[id]} alt={p.name} widths={[420, 800]} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 240px, 420px" format="webp" quality={82} loading={first ? 'eager' : 'lazy'} /></div>
+  <div class="lright">
+    <div class="lhead">
+      <h2 class="lname">{p.name}</h2>
+      <p class="role">{p.role}</p>
+      <div class="tags">{p.areas.map(a => <span class="tag">{AREA_NAMES[a]}</span>)}{p.langs.filter(l => l !== 'English').map(l => <span class="tag plain">{l}</span>)}</div>
+    </div>
+    <div class="ltabs seg" role="tablist" aria-label={`${p.name}: details`}>
+      {TABS.map(([k, label], i) => <button type="button" role="tab" id={`tab-${uid}-${k}`} aria-controls={`pane-${uid}-${k}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} class={i === 0 ? 'on' : ''}>{label}</button>)}
+    </div>
+    <div class="lpanel">
+      <div class="pin on" role="tabpanel" id={`pane-${uid}-about`} aria-labelledby={`tab-${uid}-about`}><p class="big">{p.about}</p></div>
+      <div class="pin" role="tabpanel" id={`pane-${uid}-cases`} aria-labelledby={`tab-${uid}-cases`} aria-hidden="true"><ul>{p.cases.map(c => <li>{c}</li>)}</ul></div>
+      <div class="pin" role="tabpanel" id={`pane-${uid}-how`} aria-labelledby={`tab-${uid}-how`} aria-hidden="true"><p class="big">{p.how}</p></div>
+      <div class="pin" role="tabpanel" id={`pane-${uid}-quals`} aria-labelledby={`tab-${uid}-quals`} aria-hidden="true"><div class="quals">{quals.map(q => <div class="qual"><span class="y">{q[0]}</span><b>{q[1]}</b><span class="s">{q[2]}</span></div>)}</div></div>
+    </div>
+  </div>
+</div>

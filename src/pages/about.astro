@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import '../styles/pages.css';
+import { TEAM } from '../lib/images';
+import { SITE } from '../data/site';
+---
+<Base title="About" description="A small Dublin firm, on purpose: the person you meet first is the person who does the work.">
+  <div class="band b-light"><div class="wrap">
+    <h1 class="ph1">A small firm, <em>on purpose.</em></h1>
+    <p class="sub">Siobhan Garvey and Declan Lennon opened the office in 2009 so that the person you meet first is the person who does the work.</p>
+    <div class="team">
+      <Image src={TEAM} alt="The Garvey Lennon team" widths={[640, 960, 1280, 1500]} sizes="(max-width: 1280px) 100vw, 1216px" format="webp" quality={82} loading="eager" />
+      <p class="caption">From left: Siobhan Garvey, Declan Lennon, Marta Kowalska, Rafael Souza and Aoife Brennan, practice manager.</p>
+    </div>
+  </div></div>
+  <div class="band b-green"><div class="wrap">
+    <div class="tl">
+      <div><b>2009</b><p>The office opens on {SITE.street}.</p></div>
+      <div><b>2014</b><p>Marta Kowalska joins; copyright work begins.</p></div>
+      <div><b>2018</b><p>Marta becomes a partner. The firm becomes an LLP.</p></div>
+      <div><b>2022</b><p>Rafael Souza is admitted and joins.</p></div>
+    </div>
+  </div></div>
+</Base>
