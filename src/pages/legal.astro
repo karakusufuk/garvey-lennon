@@ -6,18 +6,18 @@ import { LEGAL, LEGAL_ORDER } from '../data/legal';
 <Base title="Privacy, cookies and terms" description="Privacy notice, cookies and the legal notice for the Garvey Lennon website.">
   <div class="band b-light"><div class="wrap">
     <h1 class="ph1" style="font-size:clamp(44px,5vw,72px)">Privacy, cookies and terms</h1>
-    <div class="ltabs-wrap"><div class="chips seg" id="ltabs" role="tablist" aria-label="Legal sections">
-      {LEGAL_ORDER.map((k, i) => <button class="chip" role="tab" data-lt={k} aria-pressed={i === 0 ? 'true' : 'false'} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`lt-${k}`} id={`ltab-${k}`}>{LEGAL[k][0]}</button>)}
+    <div class="ltabs-wrap"><div class="chips seg" id="ltabs" role="group" aria-label="Legal sections">
+      {LEGAL_ORDER.map((k, i) => <button class="chip" data-lt={k} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls={`lt-${k}`} id={`ltab-${k}`}>{LEGAL[k][0]}</button>)}
     </div></div>
     <div class="legal lbody" id="lbody">
-      {LEGAL_ORDER.map((k, i) => <div class="pin" id={`lt-${k}`} role="tabpanel" aria-labelledby={`ltab-${k}`} hidden={i !== 0}>{LEGAL[k][1].map(s => <><h2>{s[0]}</h2><p>{s[1]}</p></>)}</div>)}
+      {LEGAL_ORDER.map((k, i) => <div class="pin" id={`lt-${k}`} hidden={i !== 0}>{LEGAL[k][1].map(s => <><h2>{s[0]}</h2><p>{s[1]}</p></>)}</div>)}
     </div>
   </div></div>
   <script>
     import { slide } from '../scripts/seg';
     const box = document.getElementById('ltabs')!;
     const show = (k: string) => {
-      box.querySelectorAll<HTMLElement>('[data-lt]').forEach(b => { const on = b.dataset.lt === k; b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-selected', String(on)); });
+      box.querySelectorAll<HTMLElement>('[data-lt]').forEach(b => { const on = b.dataset.lt === k; b.setAttribute('aria-pressed', String(on)); });
       document.querySelectorAll<HTMLElement>('#lbody .pin').forEach(p => { const on = p.id === 'lt-' + k; if (on && p.hidden) { p.hidden = false; p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } else if (!on) p.hidden = true; });
       slide(box);
     };

@@ -9,7 +9,7 @@
   --line:#D0D5DA;
   --ink:#151B21;
   --ink-2:#48515A;
-  --ink-3:#77808A;
+  --ink-3:#646C74;    /* board: #77808A — darkened for 4.5:1 on paper and stone (Stage 7 contrast pass) */
   --green:#444F5A;
   --green-2:#4F5A65;
   --green-3:#5F6A75;
@@ -17,7 +17,7 @@
   --deep:#2F373F;
   --tint:#DCE2E7;
   --on-green:#EEF1F4;
-  --on-green-2:#B2BCC6;
+  --on-green-2:#CED5DB;  /* board: #B2BCC6 — lightened for 4.5:1 on the slate bands (Stage 7 contrast pass) */
   --clay:#A9573C;
   --clay-2:#B9603F;
   --white:#FFFFFF;
@@ -62,6 +62,7 @@ main{animation:pageIn .35s ease both}
 .sub{font-size:19px;color:var(--ink-2);margin-top:14px;max-width:56ch;text-wrap:pretty}
 .b-green .sub{color:var(--on-green-2)}
 .ph1{font-size:clamp(52px,6vw,92px);line-height:.96;letter-spacing:-.04em;max-width:14ch}
+@media (max-width:1023px){.band{min-height:min(calc(var(--u)*4),620px)}}
 @media (max-width:767px){.band{padding-block:56px}.h2{font-size:clamp(34px,9vw,44px)}.ph1{font-size:clamp(40px,11vw,52px)}.sub{font-size:17px}}
 
 /* controls — one radius, one height, no strokes on light */
@@ -82,7 +83,7 @@ main{animation:pageIn .35s ease both}
 .copyline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .copyline a{text-decoration:none}
 .copyline a:hover{text-decoration:underline;text-underline-offset:4px}
-@media (pointer:coarse){.copy{height:var(--ctl);padding:0 16px}}
+
 
 /* sliding indicator for every tab group */
 .seg{position:relative}
@@ -153,13 +154,13 @@ nav.main>a:hover,nav.main>button:hover,nav.main>[aria-current="page"],nav.main>b
 @media (min-width:1024px){.mpanel{display:none}}
 @media (max-width:767px){.logo .w span{display:none}.logo b{font-size:22px}.mono{width:36px;height:36px}}
 /* tablet and phone only: tagline at 12px and 44px language buttons in the menu panel */
-@media (max-width:1023px){.logo .w span{font-size:12px}.mpanel .mlang .lang button{height:44px}}
+@media (max-width:1023px){.logo .w span{font-size:12px}.mpanel .mlang .lang button{height:48px;min-width:60px}}
 
 /* footer */
 footer{background:var(--ink);color:var(--on-green)}
 footer>.wrap{padding-block:72px 36px}
 .fgrid{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:40px}
-footer h4{font-size:13px;font-weight:700;color:var(--on-green-2);margin-bottom:14px;letter-spacing:0}
+footer .fh{font-size:13px;font-weight:700;color:var(--on-green-2);margin-bottom:14px;letter-spacing:0;line-height:1.6}
 footer .fl{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 footer .fl a{font-size:16px;text-align:left;text-decoration:none;min-height:32px;display:inline-flex;align-items:center}
 footer .fl a:hover{text-decoration:underline;text-underline-offset:4px}
@@ -173,12 +174,6 @@ footer .addr a:hover{text-decoration:underline;text-underline-offset:4px}
 footer .addr .sep{white-space:pre}
 @media (max-width:1023px){
   .fgrid{grid-template-columns:1fr 1fr}
-  footer .fl{gap:0}
-  footer .fl a{min-height:48px}
-  footer .addr a{display:flex;align-items:center;min-height:48px}
-  footer .addr .sep{display:none}
-  footer .addr{margin-top:14px}
-  .copy{height:var(--ctl);padding:0 16px}
 }
 @media (max-width:767px){.fgrid{grid-template-columns:1fr 1fr;gap:32px 20px}.fgrid>div:first-child{grid-column:1/-1}footer>.wrap{padding-block:56px 32px}.legalines{margin-top:40px}}
 
@@ -204,4 +199,21 @@ body.am-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .svc,.mpanel{transition:none}
+}
+
+/* ---- touch sizes (Ince Belge §6: every control ≥ 48px on tablet and phone; also 1024–1199 and any coarse pointer) ---- */
+@media (max-width:1199px),(pointer:coarse){
+  .copy{height:var(--ctl);padding:0 16px}
+  .copyline a{display:inline-flex;align-items:center;min-height:48px}
+  .am-x{width:48px;height:48px}
+  footer .fl{gap:0;align-items:stretch}
+  footer .fl a{min-height:48px}
+  footer .addr a{display:flex;align-items:center;min-height:48px}
+  footer .addr .sep{display:none}
+  footer .addr{margin-top:14px}
+}
+/* 1024–1199 and touch desktops: header controls at 48px (the board's 44 / 40 stay on wider desktops) */
+@media (min-width:1024px) and (max-width:1199px),(min-width:1024px) and (pointer:coarse){
+  nav.main>a,nav.main>button{height:48px}
+  .lang button{height:48px;min-width:48px}
 }

@@ -22,15 +22,15 @@
 @media (max-width:767px){.prow-grid{grid-template-columns:1fr;margin-top:32px}.prow-grid>div:first-child>.prow:last-child{border-bottom:0}.prow b{font-size:24px}.prow .meta{margin-top:8px}}
 
 /* Languages — one band, soft horizontal gradient dark → light, three equal columns */
-.langband{background:linear-gradient(100deg,var(--deep) 0%,var(--green) 48%,var(--green-4) 100%);color:#fff}
+.langband{background:linear-gradient(100deg,var(--deep) 0%,var(--green) 48%,var(--green-3) 100%);color:#fff}  /* board ends on green-4; green-3 keeps white text ≥ 4.5:1 */
 .lgrid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 .lc{padding:4px 28px;border-left:1px solid rgba(255,255,255,.16);display:flex;flex-direction:column;gap:18px}
 .lc:first-child{border-left:0}
 .lc h3{font-size:clamp(22px,2.2vw,26px);font-weight:600;letter-spacing:-.03em;white-space:nowrap;line-height:1.1}
-.lc p{color:rgba(255,255,255,.78);font-size:16px;line-height:1.55;height:calc(1.55em * 4);overflow:hidden;text-wrap:pretty}
+.lc p{color:rgba(255,255,255,.9);font-size:16px;line-height:1.55;height:calc(1.55em * 4);overflow:hidden;text-wrap:pretty}
 .lc .btn{align-self:flex-start;min-width:150px;margin-top:auto}
 @media (max-width:1023px){
-  .langband{background:linear-gradient(180deg,var(--deep) 0%,var(--green) 48%,var(--green-4) 100%)}
+  .langband{background:linear-gradient(180deg,var(--deep) 0%,var(--green) 48%,var(--green-3) 100%)}
   .lgrid{grid-template-columns:1fr;gap:0;max-width:640px}
   .lc{border-left:0;padding:28px 0;border-top:1px solid rgba(255,255,255,.16);gap:14px}
   .lc:first-child{border-top:0;padding-top:0}
@@ -52,7 +52,7 @@
 .paper .lh span{font-size:11px;color:var(--ink-3);text-align:right;line-height:1.5}
 .paper .re{margin-top:18px;font-size:12px;color:var(--ink-3)}
 .ph{margin-top:20px;transition:opacity .2s}
-.ph button{font-size:18px;font-weight:500;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;padding:4px 8px;margin-left:-8px;border-radius:8px;min-height:30px;transition:background .2s,color .2s,opacity .2s;text-align:left}
+.ph button{font-size:18px;font-weight:500;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;padding:4px 8px;margin-left:-8px;border-radius:8px;min-height:30px;min-width:48px;transition:background .2s,color .2s,opacity .2s;text-align:left}
 .ph button::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--clay);flex:none}
 .ph button:hover,.ph button.on{background:var(--tint);color:var(--green)}
 .ph .tw:empty::after{content:"\00a0"}
@@ -68,8 +68,8 @@
   .paper:hover{box-shadow:0 1px 0 var(--line),0 10px 24px -18px rgba(20,30,40,.25)}
   .annot{min-height:0}
 }
-@media (max-width:767px){.paper{padding:28px 22px 30px}.ph button{font-size:17px;min-height:44px}.annot b{font-size:24px}}
-@media (pointer:coarse){.ph button{min-height:44px}}
+@media (max-width:767px){.paper{padding:28px 22px 30px}.ph button{font-size:17px}.annot b{font-size:24px}}
+@media (pointer:coarse),(max-width:1199px){.ph button{min-height:48px}}
 
 /* Memberships */
 .mem{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:64px;align-items:center}

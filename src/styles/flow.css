@@ -126,7 +126,7 @@
 
 /* tablet: card inside the banner, flow stacks inside the card (no arm to the right) */
 @media (max-width:1023px){
-  :root{--H:max(560px,80vh)}
+  :root:root{--H:max(560px,80vh)}  /* :root:root — the production bundle puts global.css after this file */
   .tell{margin-top:calc(var(--H) * -0.72)}
   .L{height:auto;width:60%;min-width:520px}
   .col{position:relative;width:auto;height:auto;min-height:0;padding:40px 36px 28px;transition:background .7s,color .7s,border-radius .2s}
@@ -143,10 +143,12 @@
   .L.armed .armin::before{content:"";display:block;height:1px;background:rgba(255,255,255,.14);margin-bottom:22px}
   .qbody h3{font-size:28px}
   .opt{height:auto;min-height:56px;padding:12px 18px;white-space:normal}
+  .opts{grid-auto-rows:1fr}
+  .slot,.fields input{height:48px}
 }
 /* mobile */
 @media (max-width:767px){
-  :root{--H:max(360px,55vh)}
+  :root:root{--H:max(360px,55vh)}
   .hero img{object-position:50% 38%}
   .tell{margin-top:-80px}
   .tell>.wrap{padding-left:0;padding-right:0}
@@ -159,6 +161,8 @@
   .cbody{margin-top:22px}
   .cbody .btn.start{align-self:stretch}
   .cclose{top:18px;right:max(16px,env(safe-area-inset-right,0px));width:48px;height:48px;background:rgba(255,255,255,.12)}
+  /* backdrop-filter would make the card the containing block of the fixed ×; the open card is opaque, so drop it once scrolled */
+  .L.open.inview .col{-webkit-backdrop-filter:none;backdrop-filter:none}
   .L.open.inview .cclose{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top,0px) + 12px);right:max(16px,env(safe-area-inset-right,0px));z-index:36;background:rgba(47,55,63,.92);box-shadow:0 10px 24px -12px rgba(0,0,0,.5)}
   .drow{white-space:normal;min-height:64px;padding:12px 14px;font-size:17px}
   .drow span{overflow:visible;text-overflow:clip}
@@ -178,7 +182,8 @@
   .qbody h3{font-size:26px}
   .opt{font-size:16px}
   .res .warn{max-width:none}
-  .slots .row.days{flex-wrap:wrap}
+  /* day chips: one row, scrolls sideways; scrollbar hidden; the fade on the right hints that there is more */
+  .slots .row.days{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-right:-16px;padding-right:40px;scroll-padding-right:16px;mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent)}
   .slots .row.days::-webkit-scrollbar{display:none}
   .slots .row.days .slot{flex:none}
   .slot{height:48px}
@@ -192,3 +197,5 @@
   .qbody.in-r,.qbody.in-l,.drows,.ans li{animation:fdOnly .2s both}
   @keyframes fdOnly{from{opacity:0}to{opacity:1}}
 }
+/* touch sizes: Back and × at 48px on tablet, phone and any coarse pointer */
+@media (max-width:1199px),(pointer:coarse){.qback{height:48px;padding:0 16px 0 12px}.cclose{width:48px;height:48px}}

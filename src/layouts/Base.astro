@@ -23,7 +23,8 @@ const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
 <link rel="preload" href="/fonts/geist-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap"></noscript>
 <style is:inline>
 /* Geist, self-hosted for the latin range (Fontsource build). Google Fonts above supplies latin-ext (Polish ą ę ł ś ż).
    Declared after the Google stylesheet so the local files win for latin. */

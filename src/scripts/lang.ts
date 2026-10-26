@@ -30,7 +30,8 @@ export function setLang(l: Lang, opts: { silent?: boolean } = {}): void {
 
 export function initLang(): void {
   lang = read();
-  setLang(lang, { silent: true });
+  // not silent: the flow module may already have rendered (module scripts run in document order) before the remembered language was known
+  setLang(lang);
   document.addEventListener('click', e => {
     const t = e.target as HTMLElement;
     const b = t.closest<HTMLElement>('button[data-lang]'); if (b) { setLang(b.dataset.lang as Lang); return; }

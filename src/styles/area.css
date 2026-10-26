@@ -50,7 +50,7 @@
 .qband{background:var(--clay-2);color:#fff}
 .qband>.wrap{padding-block:88px}
 .qband p{font-size:clamp(30px,3.1vw,46px);line-height:1.12;font-weight:600;letter-spacing:-.04em;text-wrap:balance}
-.qband span{display:block;margin-top:24px;font-size:19px;font-weight:600;color:rgba(255,255,255,.92)}
+.qband span{display:block;margin-top:24px;font-size:19px;font-weight:700;color:#fff}  /* 19px bold counts as large text: 4.37:1 on the accent band clears the 3:1 bar */
 
 /* questions + closer */
 .qa{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
@@ -107,7 +107,7 @@
   .lpanel .quals{grid-template-columns:1fr;gap:20px}
   .qband>.wrap{padding-block:52px}
   .qband p{font-size:clamp(26px,7vw,30px);line-height:1.14}
-  .qband span{font-size:17px;margin-top:18px}
+  .qband span{font-size:19px;margin-top:18px}
   .qa>div{padding:24px 20px}
   .closer h2{max-width:none}
   .closer .btn{width:100%}
