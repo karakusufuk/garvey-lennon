@@ -1,7 +1,7 @@
 // "Tell us what happened" — pre-screening flow. Ported from the approved board; multi-page specifics:
 // the Book confirmation opens the action modal first, area pages arrive with #start=<door>, and the
 // language change event re-renders in place. Nothing typed here is sent anywhere.
-import { T, DOORS, ORDER, RES, WARN, TIMES, LOCALE, PI_FEE_SENTENCE, type Lang } from '../data/flow';
+import { T, DOORS, ORDER, RES, WARN, TIMES, LOCALE, type Lang } from '../data/flow';
 import { PEOPLE, type AreaId, type PersonId } from '../data/people';
 import { AR, BK, DOWN } from '../lib/icons';
 import { getLang } from './lang';
@@ -59,10 +59,10 @@ export function initFlow(): void {
       const days = workDays(5);
       body = `<div class="res"><h3>${R.h}</h3><p>${R.p}</p>${w}
         <div class="match"><img src="${cards[L.id]}" alt="" width="52" height="52"><div><span>${t('meet')}</span><b>${L.name}</b></div></div>
-        <div class="slots"><div class="row days" role="group" aria-label="Day">${days.map((d, i) => `<button class="slot" data-day="${i}" aria-pressed="${F.day === i}" type="button">${fmtDay(d)}</button>`).join('')}</div>
-        <div class="row times" role="group" aria-label="Time">${TIMES.map(h => `<button class="slot" data-time="${h}" aria-pressed="${F.time === h}" type="button">${h}</button>`).join('')}</div></div>
+        <div class="slots"><div class="row days" role="group" aria-label="${t('day')}">${days.map((d, i) => `<button class="slot" data-day="${i}" aria-pressed="${F.day === i}" type="button">${fmtDay(d)}</button>`).join('')}</div>
+        <div class="row times" role="group" aria-label="${t('time')}">${TIMES.map(h => `<button class="slot" data-time="${h}" aria-pressed="${F.time === h}" type="button">${h}</button>`).join('')}</div></div>
         <div class="fields"><input id="f-name" placeholder="${t('name')}" aria-label="${t('name')}" autocomplete="name"><input id="f-phone" placeholder="${t('phone')}" aria-label="${t('phone')}" autocomplete="tel" inputmode="tel"><input id="f-email" placeholder="${t('email')}" aria-label="${t('email')}" autocomplete="email" inputmode="email">
-        <button class="btn light" id="bookBtn" type="button">${t('book')} ${AR}</button><p class="fee">${t('first')}${F.door === 'injury' ? ' ' + PI_FEE_SENTENCE : ''}</p></div></div>`;
+        <button class="btn light" id="bookBtn" type="button">${t('book')} ${AR}</button><p class="fee">${t('first')}${F.door === 'injury' ? ' ' + t('piFee') : ''}</p></div></div>`;
     } else {
       const L = PEOPLE[lawyerFor(F.door)], d = workDays(5)[F.day ?? 0];
       body = `<div class="res"><h3>${t('doneH')}</h3><p>${(T[lang].doneP)(L.name, fmtDay(d, true), F.time || '')}</p><div class="match"><img src="${cards[L.id]}" alt="" width="52" height="52"><div><b>${L.name}</b></div></div><button class="btn light restart" id="restart" type="button">${t('start')}</button></div>`;
@@ -84,13 +84,24 @@ export function initFlow(): void {
   function scrollArmIntoView(): void {
     // tablet/mobile: the question panel sits under the card; keep its top on screen after each step
     const hdr = 84 + 8; const r = armin.getBoundingClientRect();
-    if (r.top < hdr || r.top > innerHeight * 0.5) window.scrollTo({ top: r.top + scrollY - hdr - 48, behavior: reduce() ? 'auto' : 'smooth' });
+    if (r.top < hdr || r.top > innerHeight * 0.5) glide(r.top + scrollY - hdr - 48, 1000);
   }
+  // Scroll to a position over `ms` (eased in and out), so the card's growth and the page move together and slowly.
+  let scrollRaf = 0;
+  function glide(to: number, ms: number): void {
+    cancelAnimationFrame(scrollRaf);
+    const from = scrollY, dy = to - from;
+    if (reduce() || Math.abs(dy) < 2) { window.scrollTo({ top: to, behavior: 'auto' }); return; }
+    const t0 = performance.now(), ease = (k: number) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+    const step = (now: number) => { const k = Math.min(1, (now - t0) / ms); window.scrollTo(0, from + dy * ease(k)); if (k < 1) scrollRaf = requestAnimationFrame(step); };
+    scrollRaf = requestAnimationFrame(step);
+  }
+  addEventListener('wheel', () => cancelAnimationFrame(scrollRaf), { passive: true });
+  addEventListener('touchstart', () => cancelAnimationFrame(scrollRaf), { passive: true });
   function toTell(): void {
     const top = col.getBoundingClientRect().top + scrollY;
-    // desktop: the card's top tucks 12px under the header; tablet/mobile: the card's top sits just below it
-    const y = stacked() ? top - 84 - 8 : top - 84 + 12;
-    window.scrollTo({ top: y, behavior: reduce() ? 'auto' : 'smooth' });
+    // the card's top stays 24px below the header (never tucked under it), so its rounded top corners show
+    glide(top - 84 - 24, 1700);
   }
   function keep(): void {
     const v: Record<string, string> = {};

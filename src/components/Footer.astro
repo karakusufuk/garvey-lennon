@@ -11,15 +11,15 @@ const tel = 'tel:+353' + SITE.phone.replace(/\s/g, '').replace(/^0/, '');
         <Logo monogram={false} />
         <p class="addr">{SITE.address}<br><a href={tel}>{SITE.phone}</a><span class="sep"> · </span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
       </div>
-      <div><h4>Services</h4><div class="fl">{AREA_ORDER.map(a => <a href={AREAS[a].slug}>{AREAS[a].title}</a>)}</div></div>
-      <div><h4>The firm</h4><div class="fl"><a href="/about/">About</a><a href="/fees/">Fees</a><a href="/careers/">Careers</a><a href="/contact/">Contact</a></div></div>
-      <div><h4>Read</h4><div class="fl"><a href="/insights/">Insights</a><a href="/legal/">Privacy and cookies</a><a href="/legal/#terms">Legal notice</a></div></div>
+      <div><h4 data-t="services">Services</h4><div class="fl">{AREA_ORDER.map(a => <a href={AREAS[a].slug} data-t={`a${a[0].toUpperCase()}${a.slice(1)}`}>{AREAS[a].title}</a>)}</div></div>
+      <div><h4 data-t="fFirm">The firm</h4><div class="fl"><a href="/about/" data-t="about">About</a><a href="/fees/" data-t="fees">Fees</a><a href="/careers/" data-t="careers">Careers</a><a href="/contact/" data-t="contact">Contact</a></div></div>
+      <div><h4 data-t="fRead">Read</h4><div class="fl"><a href="/insights/" data-t="insights">Insights</a><a href="/legal/" data-t="privacyCookies">Privacy and cookies</a><a href="/legal/#terms" data-t="legalNotice">Legal notice</a></div></div>
     </div>
     <div class="legalines">
-      {LEGAL_LINES.map(l => <p>{l}</p>)}
+      {LEGAL_LINES.map((l, i) => <p data-t={['ll1', 'piFee', 'll3'][i]}>{l}</p>)}
     </div>
     <div class="demolines">
-      {DEMO_LINES.map(l => <p>{l}</p>)}
+      {DEMO_LINES.map((l, i) => <p data-t={['demo1', 'demo2'][i]}>{l}</p>)}
     </div>
   </div>
 </footer>

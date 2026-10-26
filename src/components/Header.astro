@@ -15,7 +15,7 @@ const links: [string, string, string][] = [['/insights/', 'insights', 'Insights'
       <button id="svcBtn" aria-expanded="false" aria-controls="svc" data-active={isArea || undefined}><span data-t="services">Services</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       {links.map(([href, key, label]) => <a href={href} data-t={key} aria-current={cur(href)}>{label}</a>)}
     </nav>
-    <div class="lang seg" role="group" aria-label="Language" data-lang-group>
+    <div class="lang seg" role="group" aria-label="Language" data-t-aria="langLabel" data-lang-group>
       <button data-lang="en" aria-pressed="true">EN</button>
       <button data-lang="pl" aria-pressed="false">PL</button>
       <button data-lang="pt" aria-pressed="false">PT</button>
@@ -26,20 +26,20 @@ const links: [string, string, string][] = [['/insights/', 'insights', 'Insights'
       <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
-  <div class="svc" id="svc" aria-label="Services">
+  <div class="svc" id="svc" aria-label="Services" data-t-aria="services">
     <div class="wrap">
-      {AREA_ORDER.map(a => <a href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><b>{AREAS[a].title}</b><span>{LEADS[a]}</span><Fragment set:html={AR} /></a>)}
+      {AREA_ORDER.map(a => <a href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><b data-t={`a${a[0].toUpperCase()}${a.slice(1)}`}>{AREAS[a].title}</b><span>{LEADS[a]}</span><Fragment set:html={AR} /></a>)}
     </div>
   </div>
-  <div class="mpanel" id="mpanel" aria-label="Menu">
+  <div class="mpanel" id="mpanel" aria-label="Menu" data-t-aria="menu">
     <div class="wrap">
       <p class="msec" data-t="services">Services</p>
-      {AREA_ORDER.map(a => <a class="mrow" href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><span><b>{AREAS[a].title}</b><span>{LEADS[a]}</span></span><Fragment set:html={AR} /></a>)}
+      {AREA_ORDER.map(a => <a class="mrow" href={AREAS[a].slug} aria-current={cur(AREAS[a].slug)}><span><b data-t={`a${a[0].toUpperCase()}${a.slice(1)}`}>{AREAS[a].title}</b><span>{LEADS[a]}</span></span><Fragment set:html={AR} /></a>)}
       <div class="mlinks" style="margin-top:22px">
         {links.map(([href, key, label]) => <a href={href} data-t={key} aria-current={cur(href)}>{label}</a>)}
       </div>
       <div class="mlang">
-        <div class="lang seg" role="group" aria-label="Language" data-lang-group>
+        <div class="lang seg" role="group" aria-label="Language" data-t-aria="langLabel" data-lang-group>
           <button data-lang="en" aria-pressed="true">EN</button>
           <button data-lang="pl" aria-pressed="false">PL</button>
           <button data-lang="pt" aria-pressed="false">PT</button>

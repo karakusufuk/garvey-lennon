@@ -2,14 +2,14 @@
 .hero{position:relative;height:var(--H);overflow:hidden;background:var(--green-2)}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 45%}
 .tell{position:relative;z-index:5;margin-top:calc(var(--H) * -0.88)}
-.L{position:relative;height:max(710px,calc(100vh - var(--hdr) - 6px))}
+.L{position:relative;height:max(710px,calc(100vh - var(--hdr) - 48px))}   /* 24px under the header and 24px above the screen bottom: the card's four corners stay on screen */
 .col{position:absolute;left:0;top:0;width:500px;height:calc(var(--H) * .74);border-radius:var(--r);padding:48px 44px 32px;display:flex;flex-direction:column;color:var(--deep);
   background:rgba(236,240,244,.46);-webkit-backdrop-filter:blur(22px) saturate(1.25);backdrop-filter:blur(22px) saturate(1.25);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 30px 60px -40px rgba(10,15,20,.6);
-  transition:height .9s var(--ease),background .7s,color .7s,border-radius .2s}
+  transition:height 1.7s var(--ease),background 1.2s,color 1.2s,border-radius .2s}
 .L.open .col{height:100%;background:var(--green);color:var(--on-green)}
 .L.armed .col{border-bottom-right-radius:0}
-.col h1{font-size:76px;line-height:.98;font-weight:600;letter-spacing:-.045em;color:var(--deep);transition:font-size .5s var(--ease);padding-right:0}
+.col h1{font-size:76px;line-height:.98;font-weight:600;letter-spacing:-.045em;color:var(--deep);transition:font-size 1s var(--ease);padding-right:0}
 .col h1 em{color:var(--green-4)}
 .L.open .col h1{font-size:54px;color:#fff;padding-right:56px}
 .L.open .col h1 em{color:rgba(255,255,255,.62)}
@@ -45,7 +45,7 @@
 .cbody>.qback{align-self:flex-start}
 
 /* the L arm */
-.arm{position:absolute;left:500px;right:0;top:110px;bottom:0;overflow-x:clip;background:var(--green);color:var(--on-green);border-radius:0 var(--r) var(--r) 0;clip-path:inset(-20px 100% 0 0);transition:clip-path 1.15s var(--ease);visibility:hidden}
+.arm{position:absolute;left:500px;right:0;top:110px;bottom:0;overflow-x:clip;background:var(--green);color:var(--on-green);border-radius:0 var(--r) var(--r) 0;clip-path:inset(-20px 100% 0 0);transition:clip-path 2s var(--ease);visibility:hidden}
 .L.armed .arm{clip-path:inset(-20px 0 0 0);visibility:visible}
 .arm::before{content:"";position:absolute;left:0;top:-12px;width:12px;height:12px;background:radial-gradient(circle at 100% 0,transparent 11.5px,var(--green) 12px)}
 .armin{height:100%;overflow:hidden;padding:30px 44px 26px;display:flex;flex-direction:column}

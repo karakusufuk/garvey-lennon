@@ -20,6 +20,10 @@ export function setLang(l: Lang, opts: { silent?: boolean } = {}): void {
     const k = el.dataset.t as keyof typeof T.en; const v = (T[l] as any)[k];
     if (typeof v === 'string') el.innerHTML = v;
   });
+  document.querySelectorAll<HTMLElement>('[data-t-aria]').forEach(el => {
+    const v = (T[l] as any)[el.dataset.tAria as string];
+    if (typeof v === 'string') el.setAttribute('aria-label', v);
+  });
   try { localStorage.setItem('gl-lang', l); } catch {}
   if (!opts.silent) document.dispatchEvent(new CustomEvent('gl:lang', { detail: { lang: l } }));
 }

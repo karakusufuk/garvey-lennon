@@ -14,6 +14,8 @@ export interface Strings {
   services: string; insights: string; fees: string; about: string; contact: string; menu: string;
   q: string; of: string; back: string; start: string; trail: string; name: string; phone: string; email: string; book: string; meet: string; first: string;
   doneH: string; doneP: (n: string, d: string, t: string) => string; plNote: string;
+  day: string; time: string; close: string; langLabel: string; howItWorks: string; careers: string; fFirm: string; fRead: string; privacyCookies: string; legalNotice: string;
+  tagline: string; aFamily: string; aEmployment: string; aCopyright: string; aInjury: string; piFee: string; ll1: string; ll3: string; demo1: string; demo2: string;
 }
 
 export const T: Record<Lang, Strings> = {
@@ -24,6 +26,11 @@ export const T: Record<Lang, Strings> = {
     q: 'Question', of: 'of', back: 'Back', start: 'Start again', trail: 'Your note', name: 'Full name', phone: 'Phone', email: 'Email', book: 'Book', meet: 'You’d meet',
     first: 'First meeting: 45 minutes, €150 + VAT, online or at 6 Lennox Mews.', doneH: 'Booked.',
     doneP: (n, d, t) => `${n} will see you on ${d} at ${t}. A confirmation and your note are on their way by email.`, plNote: '',
+    day: 'Day', time: 'Time', close: 'Close', langLabel: 'Language', howItWorks: 'See how it works →', careers: 'Careers', fFirm: 'The firm', fRead: 'Read', privacyCookies: 'Privacy and cookies', legalNotice: 'Legal notice',
+    tagline: 'Solicitors · Dublin', aFamily: 'Family law', aEmployment: 'Employment law', aCopyright: 'Copyright', aInjury: 'Personal injury',
+    piFee: 'In contentious business, a solicitor may not calculate fees or other charges as a percentage or proportion of any award or settlement.',
+    ll1: 'Garvey Lennon LLP is a limited liability partnership authorised by the Legal Services Regulatory Authority under section 125 of the Legal Services Regulation Act 2015. Solicitors regulated by the Law Society of Ireland.',
+    ll3: 'Information on this website is general and is not legal advice. © 2026 Garvey Lennon LLP.', demo1: 'Portfolio demo, not a real business.', demo2: 'Designed by Ufuk Karakuş',
   },
   pl: {
     h1: 'Opowiedz nam, <em>co się stało.</em>', sub: 'Kilka pytań, każde jednym kliknięciem, a potem spotkanie z prawnikiem, który się tym zajmuje.', startBtn: 'Zacznij tutaj',
@@ -32,6 +39,11 @@ export const T: Record<Lang, Strings> = {
     q: 'Pytanie', of: 'z', back: 'Wstecz', start: 'Zacznij od nowa', trail: 'Twoja notatka', name: 'Imię i nazwisko', phone: 'Telefon', email: 'E-mail', book: 'Umów', meet: 'Spotkasz się z',
     first: 'Pierwsze spotkanie: 45 minut, 150 € + VAT, online lub przy 6 Lennox Mews.', doneH: 'Umówione.',
     doneP: (n, d, t) => `${n} czeka na ciebie: ${d}, godz. ${t}. Potwierdzenie i notatka są już w drodze na e-mail.`, plNote: 'Marta Kowalska może dołączyć do spotkania i wszystko wyjaśnić po polsku.',
+    day: 'Dzień', time: 'Godzina', close: 'Zamknij', langLabel: 'Język', howItWorks: 'Zobacz, jak to działa →', careers: 'Kariera', fFirm: 'Kancelaria', fRead: 'Czytaj', privacyCookies: 'Prywatność i pliki cookie', legalNotice: 'Nota prawna',
+    tagline: 'Prawnicy · Dublin', aFamily: 'Prawo rodzinne', aEmployment: 'Prawo pracy', aCopyright: 'Prawo autorskie', aInjury: 'Wypadki i odszkodowania',
+    piFee: 'W sprawach spornych prawnik nie może ustalać wynagrodzenia ani innych opłat jako procentu lub części jakiejkolwiek zasądzonej kwoty ani ugody.',
+    ll1: 'Garvey Lennon LLP jest spółką z ograniczoną odpowiedzialnością (limited liability partnership) działającą na podstawie zezwolenia Legal Services Regulatory Authority, zgodnie z art. 125 Legal Services Regulation Act 2015. Prawnicy podlegają nadzorowi Law Society of Ireland.',
+    ll3: 'Informacje na tej stronie mają charakter ogólny i nie stanowią porady prawnej. © 2026 Garvey Lennon LLP.', demo1: 'Pokaz do portfolio, nie prawdziwa firma.', demo2: 'Projekt: Ufuk Karakuş',
   },
   pt: {
     h1: 'Conte para nós <em>o que aconteceu.</em>', sub: 'Algumas perguntas, um clique cada, e depois uma reunião com o advogado responsável.', startBtn: 'Comece aqui',
@@ -40,6 +52,11 @@ export const T: Record<Lang, Strings> = {
     q: 'Pergunta', of: 'de', back: 'Voltar', start: 'Recomeçar', trail: 'Seu resumo', name: 'Nome completo', phone: 'Telefone', email: 'E-mail', book: 'Agendar', meet: 'Você vai conversar com',
     first: 'Primeira reunião: 45 minutos, €150 + IVA, online ou na 6 Lennox Mews.', doneH: 'Agendado.',
     doneP: (n, d, t) => `${n} vai atender você em ${d}, às ${t}. A confirmação e o seu resumo foram enviados por e-mail.`, plNote: '',
+    day: 'Dia', time: 'Horário', close: 'Fechar', langLabel: 'Idioma', howItWorks: 'Veja como funciona →', careers: 'Carreiras', fFirm: 'O escritório', fRead: 'Leia', privacyCookies: 'Privacidade e cookies', legalNotice: 'Aviso legal',
+    tagline: 'Advogados · Dublin', aFamily: 'Direito de família', aEmployment: 'Direito do trabalho', aCopyright: 'Direito autoral', aInjury: 'Acidentes e lesões',
+    piFee: 'Em causas contenciosas, o advogado não pode calcular honorários ou outras cobranças como percentual ou proporção de qualquer indenização ou acordo.',
+    ll1: 'A Garvey Lennon LLP é uma sociedade de responsabilidade limitada (limited liability partnership) autorizada pela Legal Services Regulatory Authority nos termos da seção 125 da Legal Services Regulation Act 2015. Advogados regulados pela Law Society of Ireland.',
+    ll3: 'As informações deste site são gerais e não constituem aconselhamento jurídico. © 2026 Garvey Lennon LLP.', demo1: 'Demonstração de portfólio, não é uma empresa real.', demo2: 'Design: Ufuk Karakuş',
   },
 };
 

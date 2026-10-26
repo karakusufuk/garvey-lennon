@@ -1,13 +1,31 @@
 // Action-moment modal (Ince Belge §2.4): Book, tel:, mailto:, Google Maps and the careers email open it instead of acting.
 // No timer; closes on Esc, Close, the × and the backdrop. `onClose` runs once after the user dismisses it.
+import { getLang } from './lang';
 export type ModalKind = 'book' | 'tel' | 'mail' | 'map' | 'careers';
 
-const TEXT: Record<ModalKind, (v: Record<string, string>) => string> = {
-  book: v => `In a live build, this would confirm your meeting with ${v.name} on ${v.day} at ${v.time}, and email you the confirmation and your note.`,
-  tel: v => `In a live build, this would start a call to ${v.value}.`,
-  mail: v => `In a live build, this would open a new email to ${v.value}.`,
-  map: v => `In a live build, this would open ${v.value || 'the office'} in Google Maps.`,
-  careers: v => `In a live build, this would open a new email to ${v.value} with your application.`,
+type Vars = Record<string, string>;
+const TEXT: Record<'en' | 'pl' | 'pt', Record<ModalKind, (v: Vars) => string>> = {
+  en: {
+    book: v => `In a live build, this would confirm your meeting with ${v.name} on ${v.day} at ${v.time}, and email you the confirmation and your note.`,
+    tel: v => `In a live build, this would start a call to ${v.value}.`,
+    mail: v => `In a live build, this would open a new email to ${v.value}.`,
+    map: v => `In a live build, this would open ${v.value || 'the office'} in Google Maps.`,
+    careers: v => `In a live build, this would open a new email to ${v.value} with your application.`,
+  },
+  pl: {
+    book: v => `W działającej wersji strony potwierdziłoby to spotkanie z ${v.name}: ${v.day}, godz. ${v.time}, i wysłało na e-mail potwierdzenie oraz Twoją notatkę.`,
+    tel: v => `W działającej wersji strony rozpoczęłoby to połączenie z numerem ${v.value}.`,
+    mail: v => `W działającej wersji strony otworzyłoby to nową wiadomość e-mail do ${v.value}.`,
+    map: v => `W działającej wersji strony otworzyłoby to ${v.value || 'biuro'} w Mapach Google.`,
+    careers: v => `W działającej wersji strony otworzyłoby to nową wiadomość e-mail do ${v.value} z Twoją aplikacją.`,
+  },
+  pt: {
+    book: v => `Numa versão real do site, isto confirmaria sua reunião com ${v.name} em ${v.day}, às ${v.time}, e enviaria a confirmação e o seu resumo por e-mail.`,
+    tel: v => `Numa versão real do site, isto iniciaria uma ligação para ${v.value}.`,
+    mail: v => `Numa versão real do site, isto abriria um novo e-mail para ${v.value}.`,
+    map: v => `Numa versão real do site, isto abriria ${v.value || 'o escritório'} no Google Maps.`,
+    careers: v => `Numa versão real do site, isto abriria um novo e-mail para ${v.value} com a sua candidatura.`,
+  },
 };
 
 let onCloseCb: (() => void) | null = null;
@@ -16,7 +34,7 @@ let lastFocus: HTMLElement | null = null;
 export function openModal(kind: ModalKind, vars: Record<string, string> = {}, onClose?: () => void): void {
   const am = document.getElementById('am'), body = document.getElementById('am-body');
   if (!am || !body) return;
-  body.textContent = TEXT[kind](vars);
+  body.textContent = TEXT[getLang()][kind](vars);
   am.dataset.kind = kind;
   onCloseCb = onClose || null;
   lastFocus = document.activeElement as HTMLElement;

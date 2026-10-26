@@ -15,7 +15,7 @@ for (const id of PEOPLE_ORDER) cards[id] = (await getImage({ src: CARD[id], widt
   <div class="wrap">
     <div class="L" id="L">
       <div class="col" id="col">
-        <button class="cclose" id="closeBtn" aria-label="Close" type="button"><Fragment set:html={X} /></button>
+        <button class="cclose" id="closeBtn" aria-label="Close" data-t-aria="close" type="button"><Fragment set:html={X} /></button>
         <h1 data-t="h1">Tell us <em>what happened.</em></h1>
         <p class="csub" data-t="flowH">Pick the sentence closest to yours, answer a few one-click questions, then meet the solicitor who handles it.</p>
         <div class="cbody" id="cbody"></div>

@@ -4,12 +4,12 @@ import { CASE_STUDY_URL } from '../data/site';
 <div class="am" id="am" role="dialog" aria-modal="true" aria-labelledby="am-title" hidden data-case={CASE_STUDY_URL}>
   <div class="am-scrim" data-am-close></div>
   <div class="am-box">
-    <button class="am-x" data-am-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="am-x" data-am-close aria-label="Close" data-t-aria="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <h2 id="am-title">Concept site by Ufuk Karakuş</h2>
     <p id="am-body">In a live build, this would do the real thing.</p>
     <div class="am-actions">
-      <a class="btn" href={CASE_STUDY_URL} target="_blank" rel="noopener">See how it works →</a>
-      <button class="btn soft" data-am-close id="am-close">Close</button>
+      <a class="btn" href={CASE_STUDY_URL} target="_blank" rel="noopener" data-t="howItWorks">See how it works →</a>
+      <button class="btn soft" data-am-close id="am-close" data-t="close">Close</button>
     </div>
   </div>
 </div>
